@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/transcations"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Transactions"/>
+
+    <item
+        android:id="@+id/ask"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Asks"/>
+
+    <item
+        android:id="@+id/bid"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Bids"/>
+
+    <item
+        android:id="@+id/interval"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Interval"/>
+
+</menu>
