@@ -78,8 +78,6 @@ public class Asks extends Fragment {
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
 
-
-
             }
 
             @Override

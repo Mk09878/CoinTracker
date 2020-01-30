@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,17 +24,18 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Interval extends Fragment {
 
-    Button btn;
+    Button submit;
+    Button cancel;
     EditText interval;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.interval, null);
-        btn = v.findViewById(R.id.btn);
+        submit = v.findViewById(R.id.submit);
         interval = v.findViewById(R.id.interval);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FileOutputStream fileOutputStream;
@@ -53,11 +55,24 @@ public class Interval extends Fragment {
                     e.printStackTrace();
                 }
 
+                Toast.makeText(getContext(), "Amount Set", Toast.LENGTH_LONG).show();
+
 
 
 
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+
 
 
         return v;
