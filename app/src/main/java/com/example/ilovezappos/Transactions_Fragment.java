@@ -2,6 +2,7 @@ package com.example.ilovezappos;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class Transactions_Fragment extends Fragment {
                     tv.setText("Code: " + response.code());
                     return;
                 }
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 HashMap hash = new HashMap();
                 List<GetData> posts = response.body();
                 ArrayList<Entry> a = new ArrayList<>();
