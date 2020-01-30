@@ -30,9 +30,6 @@ public class Asks extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    ArrayList value = new ArrayList<>();
-    ArrayList amt = new ArrayList<>();
-    ArrayList ask = new ArrayList<>();
     ArrayList<AskGetters> askgetters = new ArrayList<>();
     String TAG = "Asks.java";
     View v;
@@ -67,19 +64,12 @@ public class Asks extends Fragment {
                     float tempask = Float.parseFloat(asks.get(0));
                     float tempamt = Float.parseFloat(asks.get(1));
 
-                    //ask.add(asks.get(0));
-                    //amt.add(asks.get(1));
                     temp = tempask * tempamt;
-                    //value.add(String.valueOf(temp));
-                    askgetters.add(new AskGetters(asks.get(0) , asks.get(1),String.valueOf(temp) ));
+                    askgetters.add(new AskGetters(asks.get(0) , asks.get(1), String.valueOf(temp)));
                 }
                 Log.i(TAG, "In response");
                 //Log.i(TAG, String.valueOf(value.get(0)));
 
-                for(int i = 0; i< ask.size(); i++)
-                {
-                    //askgetters.add(new AskGetters((float)value.get(i) , (float)amt.get(i), (float)ask.get(i)));
-                }
 
                 mRecyclerView = v.findViewById(R.id.recyclerView);
                 //mRecyclerView.setHasFixedSize(true);

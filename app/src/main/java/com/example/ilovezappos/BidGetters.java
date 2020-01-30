@@ -1,15 +1,15 @@
 package com.example.ilovezappos;
 
-public class AskGetters {
+public class BidGetters {
 
     private String val;
     private String amt;
-    private String ask;
+    private String bids;
 
-    public AskGetters(String ask, String amt, String val) {
+    public BidGetters(String bids, String amt, String val) {
         this.val = val;
         this.amt = amt;
-        this.ask = ask;
+        this.bids = bids;
     }
 
     public String getVal() {
@@ -20,7 +20,7 @@ public class AskGetters {
         return amt;
     }
 
-    public String getAsk() {
-        return ask;
+    public String getBids() {
+        return bids;
     }
 }
