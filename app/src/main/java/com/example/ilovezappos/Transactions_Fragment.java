@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -51,8 +52,7 @@ public class Transactions_Fragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         lc.getAxisRight().setEnabled(false);
-        lc.animateX(2000);
-        lc.animateY(2000);
+        lc.animateX(3000, Easing.Linear);
 
 
         // Set an alternative background color
