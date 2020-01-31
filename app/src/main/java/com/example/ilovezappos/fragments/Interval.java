@@ -38,6 +38,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Interval extends Fragment {
 
+
+    Button clear;
     Button submit;
     Button cancel;
     EditText interval;
@@ -48,13 +50,15 @@ public class Interval extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        String price;
         View v = inflater.inflate(R.layout.interval_fragment, null);
         submit = v.findViewById(R.id.submit);
         interval = v.findViewById(R.id.interval);
         cancel = v.findViewById(R.id.cancel);
         tracking = v.findViewById(R.id.tracking);
+        clear = v.findViewById(R.id.clear);
         currentPrice = v.findViewById(R.id.currentPrice);
-        String price;
+
 
 
         FileInputStream fileInputStream;
@@ -99,25 +103,33 @@ public class Interval extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FileOutputStream fileOutputStream;
-                try {
-                    fileOutputStream = getContext().openFileOutput("price.txt",getContext().MODE_PRIVATE);
-                    System.out.println(interval.getText().toString());
-                    tracking.setText("You are tracking: "+interval.getText().toString());
-                    fileOutputStream.write(interval.getText().toString().getBytes());
-                    fileOutputStream.close();
-                    final WorkManager mWorkManager = WorkManager.getInstance();
-                    final PeriodicWorkRequest mRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class,1, TimeUnit.HOURS)
-                            .build();
-                    mWorkManager.cancelAllWork();
-                    mWorkManager.enqueue(mRequest);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(interval.getText().toString().matches(""))
+                {
+                    Toast.makeText(getContext(), "Please enter a value",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    FileOutputStream fileOutputStream;
+                    try {
+                        fileOutputStream = getContext().openFileOutput("price.txt",getContext().MODE_PRIVATE);
+                        System.out.println(interval.getText().toString());
+                        tracking.setText("You are tracking: "+interval.getText().toString());
+                        fileOutputStream.write(interval.getText().toString().getBytes());
+                        fileOutputStream.close();
+                        final WorkManager mWorkManager = WorkManager.getInstance();
+                        final PeriodicWorkRequest mRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class,1, TimeUnit.HOURS)
+                                .build();
+                        mWorkManager.cancelAllWork();
+                        mWorkManager.enqueue(mRequest);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(getContext(), "Amount Set", Toast.LENGTH_LONG).show();
                 }
 
-                Toast.makeText(getContext(), "Amount Set", Toast.LENGTH_LONG).show();
 
 
 
@@ -137,7 +149,20 @@ public class Interval extends Fragment {
             }
         });
 
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(interval.getText().toString().matches(""))
+                {
+                    Toast.makeText(getContext(), "Please enter a value",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    interval.getText().clear();
+                }
 
+            }
+        });
 
 
 
