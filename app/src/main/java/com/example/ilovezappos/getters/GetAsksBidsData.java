@@ -1,4 +1,4 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.getters;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ilovezappos.R;
+import com.example.ilovezappos.getters.AskGetters;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,7 @@ public class AsksAdapter extends RecyclerView.Adapter<AsksAdapter.AsksViewHolder
     @Override
     public AsksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i(TAG, "inviewholder");
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.carditem, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.carditem_asks, parent, false);
         AsksViewHolder avh = new AsksViewHolder(v);
         return avh;
     }

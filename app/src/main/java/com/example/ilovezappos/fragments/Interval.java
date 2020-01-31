@@ -1,6 +1,7 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,13 @@ import androidx.fragment.app.Fragment;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.ilovezappos.NotificationWorker;
+import com.example.ilovezappos.R;
+import com.example.ilovezappos.api_requests.Ticker_Req;
+import com.example.ilovezappos.getters.TickerGetters;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,8 +36,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class Interval extends Fragment {
 
     Button submit;
@@ -38,11 +43,12 @@ public class Interval extends Fragment {
     EditText interval;
     TextView tracking;
     TextView currentPrice;
+    String TAG = "Interval.java";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.interval, null);
+        View v = inflater.inflate(R.layout.interval_fragment, null);
         submit = v.findViewById(R.id.submit);
         interval = v.findViewById(R.id.interval);
         cancel = v.findViewById(R.id.cancel);
@@ -50,14 +56,18 @@ public class Interval extends Fragment {
         currentPrice = v.findViewById(R.id.currentPrice);
         String price;
 
+
         FileInputStream fileInputStream;
         try {
+
             fileInputStream = getContext().openFileInput("price.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             price = bufferedReader.readLine();
             tracking.setText("You are tracking: "+price);
+            Log.i(TAG, "In try");
         } catch (FileNotFoundException e) {
+            Log.i(TAG, "In catch");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +78,7 @@ public class Interval extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Ticker jsonPlaceHolderApi = retrofit.create(Ticker.class);
+        Ticker_Req jsonPlaceHolderApi = retrofit.create(Ticker_Req.class);
 
         Call<TickerGetters> call = jsonPlaceHolderApi.getPrice();
 
@@ -118,6 +128,9 @@ public class Interval extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                File file = new File("/data/data/com.example.ilovezappos/files/price.txt");
+                file.delete();
                 final WorkManager mWorkManager = WorkManager.getInstance();
                 mWorkManager.cancelAllWork();
                 tracking.setText("You are currently not tracking");

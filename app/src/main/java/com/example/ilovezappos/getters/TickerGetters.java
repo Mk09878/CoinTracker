@@ -1,4 +1,4 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.getters;
 
 public class TickerGetters {
 

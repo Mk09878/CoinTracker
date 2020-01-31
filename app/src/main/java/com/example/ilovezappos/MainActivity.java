@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.ilovezappos.fragments.Asks;
+import com.example.ilovezappos.fragments.Bids;
+import com.example.ilovezappos.fragments.Interval;
+import com.example.ilovezappos.fragments.Transactions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
         nav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Transactions_Fragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Transactions()).commit();
 
 
 
     }
 
+    // Based on the item clicked, replaces the current fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()){
                 case R.id.transcations:
-                    selected = new Transactions_Fragment();
+                    selected = new Transactions();
                     break;
 
                 case R.id.ask:

@@ -1,4 +1,4 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ilovezappos.R;
+import com.example.ilovezappos.getters.BidGetters;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,7 @@ public class BidsAdapter extends RecyclerView.Adapter<BidsAdapter.BidsViewHolder
     @Override
     public BidsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i(TAG, "inviewholder");
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.carditembids, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.carditem_bids, parent, false);
         BidsViewHolder avh = new BidsViewHolder(v);
         return avh;
     }

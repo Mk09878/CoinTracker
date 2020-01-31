@@ -12,15 +12,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.android.volley.RequestQueue;
+import com.example.ilovezappos.api_requests.Ticker_Req;
+import com.example.ilovezappos.getters.TickerGetters;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,11 +37,13 @@ public class NotificationWorker extends Worker {
 
     }
 
+    // Reads the price.text file and checks if the current price has fallen below the given price.
+    // If yes, displays a notification
     @NonNull
     @Override
     public Result doWork() {
 
-        FileInputStream fileInputStream = null;
+        FileInputStream fileInputStream;
         try {
             fileInputStream = context.openFileInput("price.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -59,15 +60,13 @@ public class NotificationWorker extends Worker {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Ticker jsonPlaceHolderApi = retrofit.create(Ticker.class);
+        Ticker_Req jsonPlaceHolderApi = retrofit.create(Ticker_Req.class);
 
         Call<TickerGetters> call = jsonPlaceHolderApi.getPrice();
 
         call.enqueue(new Callback<TickerGetters>() {
             @Override
             public void onResponse(Call<TickerGetters> call, Response<TickerGetters> response) {
-                System.out.println(Float.parseFloat(priceFile));
-                System.out.println(Float.parseFloat(response.body().getLast()));
                 if (Float.parseFloat(response.body().getLast()) < Float.parseFloat(priceFile)) {
                     System.out.println("Show");
                     showNotification("Rates have fallen!","Click here to check new rates");
@@ -76,6 +75,7 @@ public class NotificationWorker extends Worker {
 
             @Override
             public void onFailure(Call<TickerGetters> call, Throwable t) {
+
 
             }
         });
@@ -103,7 +103,7 @@ public class NotificationWorker extends Worker {
                 .setContentTitle(title)
                 .setContentText(desc)
                 .setContentIntent(pendingNotificationIntent)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_error_outline_24px)
                 .setAutoCancel(true);
 
 

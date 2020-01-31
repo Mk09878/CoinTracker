@@ -1,4 +1,4 @@
-package com.example.ilovezappos;
+package com.example.ilovezappos.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ilovezappos.R;
+import com.example.ilovezappos.api_requests.Transaction_Req;
+import com.example.ilovezappos.getters.GetData;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -36,8 +39,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Transactions_Fragment extends Fragment {
-    TextView tv;
+public class Transactions extends Fragment {
     LineChart lc;
     String TAG = "MainActivity.java";
 
@@ -45,17 +47,14 @@ public class Transactions_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.transcations, null);
+        View v = inflater.inflate(R.layout.transcations_fragment, null);
         lc = v.findViewById(R.id.lc);
 
+        // Graph Display Adjustments
         XAxis xAxis = lc.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
         lc.getAxisRight().setEnabled(false);
         lc.animateX(3000, Easing.Linear);
-
-
-        // Set an alternative background color
         lc.setBackgroundColor(Color.TRANSPARENT);
 
 
@@ -64,7 +63,7 @@ public class Transactions_Fragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        JsonConn jsonPlaceHolderApi = retrofit.create(JsonConn.class);
+        Transaction_Req jsonPlaceHolderApi = retrofit.create(Transaction_Req.class);
 
         Call<List<GetData>> call = jsonPlaceHolderApi.getPosts();
 
@@ -72,11 +71,16 @@ public class Transactions_Fragment extends Fragment {
             @Override
             public void onResponse(Call<List<GetData>> call, Response<List<GetData>> response) {
 
+                /*
+                Stores the date and price in a hashmap while handling duplicates.
+                Sorts the hashmap according to date.
+                Displays the graph
+                 */
                 if (!response.isSuccessful()) {
-                    tv.setText("Code: " + response.code());
+                    Log.i(TAG,"Code: " + response.code());
                     return;
                 }
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+
                 HashMap hash = new HashMap();
                 List<GetData> posts = response.body();
                 ArrayList<Entry> a = new ArrayList<>();
@@ -84,10 +88,9 @@ public class Transactions_Fragment extends Fragment {
                 {
                     Float date = Float.valueOf(post.getDate());
                     Float price = Float.valueOf(post.getPrice());
-                    //a.add(new Entry(date, price));
                     if(hash.containsKey(date))
                     {
-                        //int index = dates.indexOf(date);
+
                         float pricetocomp = (float) hash.get(date);
                         if(pricetocomp < price)
                         {
@@ -141,7 +144,7 @@ public class Transactions_Fragment extends Fragment {
             @Override
             public void onFailure(Call<List<GetData>> call, Throwable t) {
 
-                tv.setText(t.getMessage());
+                Log.i(TAG, t.getMessage());
 
             }
         });

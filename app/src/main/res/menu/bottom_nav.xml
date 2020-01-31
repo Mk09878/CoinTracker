@@ -3,22 +3,23 @@
 
     <item
         android:id="@+id/transcations"
-        android:icon="@mipmap/ic_launcher"
-        android:title="Transactions"/>
+        android:icon="@drawable/ic_trending_up_24px"
+        android:title="Transactions"
+        />
 
     <item
         android:id="@+id/ask"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ask_icon"
         android:title="Asks"/>
 
     <item
         android:id="@+id/bid"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_gavel_24px"
         android:title="Bids"/>
 
     <item
         android:id="@+id/interval"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_error_outline_24px"
         android:title="Interval"/>
 
 </menu>
