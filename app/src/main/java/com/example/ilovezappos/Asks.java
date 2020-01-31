@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -74,9 +76,13 @@ public class Asks extends Fragment {
                 mRecyclerView = v.findViewById(R.id.recyclerView);
                 //mRecyclerView.setHasFixedSize(true);
                 mLayoutManager = new LinearLayoutManager(getContext());
-                mAdapter = new AsksAdapter(askgetters);
+                mAdapter = new AsksAdapter(askgetters, getContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
+                LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(getContext(),R.anim.layout_animation);
+                mRecyclerView.setLayoutAnimation(animationController);
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+                mRecyclerView.scheduleLayoutAnimation();
 
             }
 

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,9 +79,13 @@ public class Bids extends Fragment {
 
                 mRecyclerView = v.findViewById(R.id.recyclerViewBids);
                 mLayoutManager = new LinearLayoutManager(getContext());
-                mAdapter = new BidsAdapter(bidsgetters);
+                mAdapter = new BidsAdapter(bidsgetters,getContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
+                LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(getContext(),R.anim.layout_animation);
+                mRecyclerView.setLayoutAnimation(animationController);
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+                mRecyclerView.scheduleLayoutAnimation();
 
 
 
