@@ -29,3 +29,5 @@ A native android app written in Java as a part of the technical challenge given 
 1. Could handle configuration changes
 2. Could use RxJava
 3. Could implement the app in kotlin
+
+###### App Icon made by Pixel perfect from www.flaticon.com
