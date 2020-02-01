@@ -20,7 +20,7 @@ A native android app written in Java as a part of the technical challenge given 
 <img src = "app/screenshots/Graph.png" width = 400>
 
 ### Set Price
-<img src = "app/screenshots/Notif.png" width = 400>
+<img src = "app/screenshots/Notiff.png" width = 400>
 
 ### Notification Displayed
 <img src = "app/screenshots/Ntoif.png" width = 400>
