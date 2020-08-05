@@ -4,12 +4,7 @@ A native android app written in Java that has the following functionalities:
 2. Displays two tables (Recycler View) of order book information (bids and asks)
 3. Takes price input from the user and stores it in a text file. Pings the api every hour using a service and displays a notification
    if the current bitcoin price has fallen below the specified price entered by the user.
-   
-## Bonuses Covered:
-1. Used retrofit to handle the REST requests
-2. Used animations for the graph as well as the Recycler views
-3. Followed material design guidelines to a certain extent
-   
+      
 ### Asks 
 <img src = "app/screenshots/Asks.png" width = 400>
 
